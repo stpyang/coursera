@@ -7,6 +7,8 @@ Programming exercises for the classes I'm following online at www.coursera.org
 2. Regularization
 3. Neural Networks: Representation
 4. Neural Networks: Learning
+5. Advice for Applying Machine Learning
+6. Support Vector Machines
 
 ##rprog-002 R Programming
 
