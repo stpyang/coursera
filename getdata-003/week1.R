@@ -1,7 +1,7 @@
 download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06hid.csv",
-              destfile="week1.csv",
+              destfile="week1a.csv",
               method="curl")
-data <- read.csv("week1.csv")
+data <- read.csv("week1a.csv")
 print(sum(data$VAL[!is.na(data$VAL)] >= 24))
 
 library(xlsx)
@@ -20,7 +20,7 @@ download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Frestau
               method="curl")
 doc <- xmlTreeParse("week1.xml", useInternal=TRUE)
 rootNode <- xmlRoot(doc)
-print(sum(xpathSApply(rootNode, "//zipcode", xmlValue) == "21231"))
+print(sum(xpathSApply(rootNode, "//zipcode", xmlValue) %in% c("21231")))
 
 library(data.table)
 download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2Fss06pid.csv",
