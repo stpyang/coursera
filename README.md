@@ -16,8 +16,10 @@ Programming exercises for the classes online at www.coursera.org
 2. cachemtarix and cachemean
 3. best, rankhospital, and rankall
 
-#protfun-004 Functional Programming Principles in Scala
+##progfun-004 Functional Programming Principles in Scala
 
 0. Example Assignment (example)
 1. Recursion (recfun)
 2. Functional Sets (funsets)
+
+##getdata-003 Getting and Cleaning Data
