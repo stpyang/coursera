@@ -1,5 +1,4 @@
-Programming exercises for the classes I'm following online at www.coursera.org
-
+Programming exercises for the classes online at www.coursera.org
 
 ##ml-005 Machine Learning
 
@@ -9,10 +8,16 @@ Programming exercises for the classes I'm following online at www.coursera.org
 4. Neural Networks: Learning
 5. Advice for Applying Machine Learning
 6. Support Vector Machines
+7. Dimensionality Reduction
 
 ##rprog-002 R Programming
 
-1. Overview of R, R data types and objects, reading and writing data
-2. Control structures, functions, scoping rules, dates and times
-3. Loop functions, debugging tools
-4. Simulation, code profiling
+1. pollutantmean, complete, and corr
+2. cachemtarix and cachemean
+3. best, rankhospital, and rankall
+
+#protfun-004 Functional Programming Principles in Scala
+
+0. Example Assignment (example)
+1. Recursion (recfun)
+2. Functional Sets (funsets)
