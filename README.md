@@ -9,6 +9,7 @@ Programming exercises for the classes online at www.coursera.org
 5. Advice for Applying Machine Learning
 6. Support Vector Machines
 7. Dimensionality Reduction
+8. Anomaly Detection and Recommender Systems
 
 ##rprog-002 R Programming
 
