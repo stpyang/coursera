@@ -23,3 +23,5 @@ Programming exercises for the classes online at www.coursera.org
 2. Functional Sets (funsets)
 
 ##getdata-003 Getting and Cleaning Data
+
+##exdata-002 Exploratory Data Analysis

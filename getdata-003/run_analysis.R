@@ -15,8 +15,8 @@ if (!file.exists("UCI HAR Dataset/train/subject_train.txt")) stop ("subject_trai
 if (!file.exists("UCI HAR Dataset/train/X_train.txt")) stop ("UCI HAR Dataset/train/X_train.txt not found!")
 if (!file.exists("UCI HAR Dataset/train/X_train.txt")) stop ("UCI HAR Dataset/train/X_train.txt not found!")
 
-activity_labels <- read.table(file="UCI HAR Dataset/activity_labels.txt", header=FALSE)
-features <- read.table(file="UCI HAR Dataset/features.txt", header=FALSE)
+activity_labels <- read.table(file="UCI HAR Dataset/activity_labels.txt", header=FALSE, colClasses=c("numeric", "character"))
+features <- read.table(file="UCI HAR Dataset/features.txt", header=FALSE, colClasses=c("numeric", "character"))
 subject_test <- read.table(file="UCI HAR Dataset/test/subject_test.txt", header=FALSE)
 X_test <- read.table(file="UCI HAR Dataset/test/X_test.txt", header=FALSE)
 y_test <- read.table(file="UCI HAR Dataset/test/y_test.txt", header=FALSE)
@@ -53,10 +53,10 @@ X$subject <- factor(subject$V1)
 # for each activity and each subject.
 #
 tidyData <- ddply(.data=X, .variables=.(X$activity, X$subject), colwise(mean))
-names(tidyData) = c("activity","subject", as.character(features$V2))
+names(tidyData) = c("activity","subject", features$V2)
 rownames(tidyData) <- activity_labels$activity
 for (i in 1:(dim(tidyData)[1])) {
-    tidyData[i, "activity"] = as.character(activity_labels[tidyData[i, "activity"], 2])
+    tidyData[i, "activity"] = activity_labels[tidyData[i, "activity"], 2]
 }
 
 #

@@ -1,7 +1,7 @@
 
 ##INTRODUCTION
 
-This script run_analysis.r creates a data.frame called "tidyData" that is 180
+This script run_analysis.R creates a data.frame called "tidyData" that is 180
 rows by 563 columns. The 180 rows correspond to unique (activity, subject)
 pairs. The 563 columns correspond to 2 indexing columns plus 561 features. A
 subset of the data is shown below:
