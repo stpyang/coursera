@@ -9,5 +9,5 @@ dateTime <- strptime(dateStr, format="%d/%m/%Y %H:%M:%S")
 gas <- data$Global_active_power
 
 plot(dateTime, gas, type="l", xlab="", ylab="Global Active Power(kilowatts)")
-dev.copy(png, file="plot2.png")
+dev.copy(png, file="figure/plot2.png")
 dev.off()

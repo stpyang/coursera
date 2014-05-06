@@ -11,5 +11,5 @@ hist(x = data$Global_active_power,
      xlab = "Global Active Power(kilowatts)",
      ylab = "Frequency"
      )
-dev.copy(png, file="plot1.png")
+dev.copy(png, file="figure/plot1.png")
 dev.off()

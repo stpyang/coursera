@@ -19,5 +19,5 @@ with(data, {
     
     plot(datetime, Global_reactive_power, type="l")
 })
-dev.copy(png, file="plot4.png")
+dev.copy(png, file="figure/plot4.png")
 dev.off()
