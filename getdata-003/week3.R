@@ -18,10 +18,8 @@ download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FGDP.cs
 download.file(url="https://d396qusza40orc.cloudfront.net/getdata%2Fdata%2FEDSTATS_Country.csv",
               destfile="week3c.csv",
               method="curl")
-
 gdp <- read.csv(file="week3b.csv",skip=5,header=FALSE)[1:190,]
 edu <- read.csv(file="week3c.csv")
-
 gdp$grank <- strtoi(gdp$V2)
 edu$ifact <- factor(edu$Income.Group)
 
