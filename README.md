@@ -21,6 +21,8 @@ Programming exercises for the classes online at www.coursera.org
 1. Recursion (recfun)
 2. Functional Sets (funsets)
 
+##repdata-002 Reproducible Research
+
 ##rprog-002 R Programming 
 
 1. pollutantmean, complete, and corr 
