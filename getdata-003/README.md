@@ -4,7 +4,7 @@
 This script run_analysis.R creates a data.frame called "tidyData" that is 180
 rows by 563 columns. The 180 rows correspond to unique (activity, subject)
 pairs. The 563 columns correspond to 2 indexing columns plus 561 features. A
-subset of the data is shown below:
+*subset* of the data is shown below:
 
 <pre>
 > tidyData[1:10,1:5]
@@ -27,16 +27,17 @@ The code is straightforward.  The first section of code ensures that the
 necessary data files are present and if so, loads them into memory.
 
 The second section of code merges the training and test data for the signals,
-activity, and subject into data frames called "X", "y", and "subject"
+activity, and subject into data frames called `X`, `y`, and `subject`
 respectively.
 
-The third section uses the sapply method to calculate the mean and standard
+The third section uses the `sapply` method to calculate the mean and standard
 deviation of each feature as per the assignment instructions.
 
-The fourth section appends activity and subject factor to X.
+The fourth section appends activity and subject infomration to the data frame
+`X`.
 
-The fifth section uses the ddply method to group the rows of X by (activity,
-subject) pairs an take the means of each column according to the grouping.
+The fifth section uses the ddply method to group the rows of `X` by activity
+and by subject, and take the means of each column according to the grouping.
 Finally, we replace the activity number with its english word.
 
 The last section saves the output in a file called tidyData.txt.
