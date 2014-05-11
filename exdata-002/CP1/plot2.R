@@ -32,6 +32,6 @@ datetime <- strptime(dateStr, format="%Y-%m-%d %H:%M:%S")
 
 ## Plot a timeseries of Global Active Power and save it to a file
 gap <- as.numeric(dt$Global_active_power)
-png(filename="plot2.png", width=500, height=500, bg="transparent")
-plot(datetime, gap, type="l", xlab="", ylab="Global Active Power(kilowatts)")
+png(filename="plot2.png", width=502, height=502, bg="transparent")
+plot(datetime, gap, type="l", xlab="", ylab="Global Active Power (kilowatts)")
 dev.off()

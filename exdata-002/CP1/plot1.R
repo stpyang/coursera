@@ -28,11 +28,11 @@ dt <- dt[dt$Date==as.Date("2007-02-01")|dt$Date==as.Date("2007-02-02"),]
 
 ## Create a histogram using the base package and save it to a file
 gap <- as.numeric(dt$Global_active_power)
-png(filename="plot1.png", width=500, height=500, bg="transparent")
+png(filename="plot1.png", width=502, height=502, bg="transparent")
 hist(x = gap,
      col = "red",
      main = "Global Active Power",
-     xlab = "Global Active Power(kilowatts)",
+     xlab = "Global Active Power (kilowatts)",
      ylab = "Frequency"
      )
 dev.off()
