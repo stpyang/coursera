@@ -20,6 +20,7 @@ Programming exercises for the classes online at www.coursera.org
 0. Example Assignment (example)
 1. Recursion (recfun)
 2. Functional Sets (funsets)
+3. Object-Oriented Sets (objsets)
 
 ##repdata-002 Reproducible Research
 
