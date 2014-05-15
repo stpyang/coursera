@@ -2,44 +2,53 @@
 
 ## Loading the preprocessing the data ##
 
-We load the data and replace the date column with Date objects.
+We unzip and load the data, downloaded from [the coursera website][data], and
+then inspect it for sanity.
+
+```{r, warning=FALSE}
+unzip("activity.zip", overwrite=FALSE)
+data <- read.csv(file="activity.csv",colClasses=c("integer", "Date", "integer"))
+summary(data)
+```
+
+We extract two data frames representing the number of steps per day and the mean
+steps per time interval.
 
 ```{r}
-unzip("activity.zip")
-data <- read.csv(file="activity.csv")
-data$date <- as.Date(data$date)
+stepsPerDay <- aggregate(steps~date, data=data, sum, na.rm=TRUE)
+stepsPerDay <- data.frame(stepsPerDay)
+
+meanStepsPerInterval <- aggregate(steps~interval, data=data, mean, na.rm=TRUE)
+meanStepsPerInterval <- data.frame(meanStepsPerInterval)
 ```
 
 ## What is the mean total number of steps taken per day? ##
-We use ggplot2 to create a histogram of the average number of steps taken per day.
+
+We use ggplot2 to create a histogram of the average number of steps taken per
+day.
 
 ```{r, echo=FALSE, eval=FALSE}
 ## IGNORE THIS CHUNK!!! ##
-numBins <- 10
-stepsPerDay <- tapply(data$steps, data$date, sum, na.rm =TRUE)
 hist(stepsPerDay,
-     breaks=numBins,
-     main = "Histograms of steps taken per day",
-     xlab = "Steps per day",
-     ylab = "Frequency")
+     breaks=5,
+     main="Histograms of steps taken per day",
+     xlab="Steps per day",
+     ylab="Frequency")
 ```
 
 ```{r, echo=TRUE, eval=TRUE}
 library(ggplot2)
-numBins <- 10
-stepsPerDay <- tapply(data$steps, data$date, sum, na.rm =TRUE)
-stepsPerDay <- data.frame(stepsPerDay)
-names(stepsPerDay) <- c("steps")
-qplot(steps,
+qplot(x=steps,
       data=stepsPerDay,
-      binwidth=max(stepsPerDay)/numBins,
-      main = "Histograms of steps taken per day",
-      xlab = "Steps per day",
-      ylab = "Frequency")
+      binwidth=max(stepsPerDay$steps)/5,
+      main="Histogram of steps taken per day",
+      xlab="Steps per day",
+      ylab="Frequency")
 ```
 
-The **mean** number of steps per day is **9354.23**, and the **median** number of
-steps per day is **10395**.  This was found using the code below, but can also be found by calling `summary(stepsPerDay)`.
+The **mean** number of steps per day is **10766**, and the **median** number of
+steps per day is **10765**.  This was found using the code below, but can also
+be found by calling `summary(stepsPerDay)`.
 
 ```{r, echo=TRUE, eval=TRUE}
 mean(stepsPerDay$steps); median(stepsPerDay$steps)
@@ -52,36 +61,34 @@ average number of steps taken, averaged across all days.
 
 ```{r, echo=FALSE, eval=FALSE}
 ## IGNORE THIS CHUNK!!! ##
-meanStepsPerInterval <- tapply(data$steps, data$interval, mean, na.rm=TRUE)
-interval <- as.numeric(rownames(meanStepsPerInterval))
 plot(interval,
-     meanStepsPerInterval, type="l",
+     steps, type="l",
      main="Average number of steps taken per interval",
-     xlab = "Five-minute Interval",
-     ylab = "Average steps taken")
+     xlab="Five-minute Interval",
+     ylab="Average steps taken")
 ```
 
 ```{r, echo=TRUE, eval=TRUE}
 library(ggplot2)
-meanStepsPerInterval <- tapply(data$steps, data$interval, mean, na.rm=TRUE)
-interval <- as.numeric(rownames(meanStepsPerInterval))
-df <- data.frame(interval, meanStepsPerInterval)
-ggplot(df, aes(x=interval, y=meanStepsPerInterval)) +
+ggplot(meanStepsPerInterval, aes(x=interval, y=steps)) +
     geom_line() +
     ggtitle("Average number of steps taken per interval") +
-    xlab("Five-minute Interval") +
+    xlab("Interval") +
     ylab("Average steps taken")
 ```
 
-The five-minute interval starting at **835** represents the most active time.  This was found by calling the code below
+The five-minute interval starting at **835** represents the most active time,
+with ***206.1698*** steps on average.  This was found by calling the code below
 
 ```{r, echo=TRUE, eval=TRUE}
-which.max(df$meanStepsPerInterval)
+meanStepsPerInterval[which.max(meanStepsPerInterval$steps),]
 ```
 
 ## Imputing missing values ##
 
-The total number of missing values in the dataset is **2304**.  This was found by running the code below, though it an also be found by calling `summary(data)`.
+The total number of missing values in the dataset is **2304**.  This was found
+by running the code below, though it an also be found by calling
+`summary(data)`.
 
 ```{r, echo=TRUE, eval=TRUE}
 sum(is.na(data$steps))
@@ -91,13 +98,21 @@ We replace all NA values in `data$steps` with the mean number of steps per
 corresponding interval.
 
 ```{r, echo=TRUE, eval=TRUE}
+getMeanSteps <- function(interval) {
+    meanStepsPerInterval[which(meanStepsPerInterval$interval==interval),]$steps
+}
 for (i in 1:length(data$steps)) {
     data$steps[i] <- ifelse(is.na(data$steps[i]),
-                            meanStepsPerInterval[as.character(data$interval[i])],
+                            getMeanSteps(data$interval[i]),
                             data$steps[i])
 }
 ```
 
+We check that we have successfully removed the NA values in `data$steps`
+
+```{r, echo=TRUE, eval=TRUE}
+any(is.na(data$steps))
+```
 
 ## Are there differences in activity patterns between weekdays and weekends? ##
 
@@ -131,14 +146,16 @@ plot(interval, df[,"weekend"], type="l",
 ```
 
 ```{r, echo=TRUE, eval=TRUE}
+library(ggplot2)
 library(plyr)
 df <- ddply(.data=data.frame(data$steps),
             .variables=.(data$interval, type),
             colwise(mean))
 names(df) <- c("interval", "type", "stepsPerInterval")
-ggplot(df, aes(x=interval, y=stepsPerInterval)) +
+ggplot(df, aes(x=interval, y=stepsPerInterval, xlab="Interval")) +
     geom_line() +
     facet_grid(type~.) +
+    ggtitle("Activity pattern on on weekdays versus weekends") +
     xlab("Interval") +
     ylab("Average number of steps")
 ```
