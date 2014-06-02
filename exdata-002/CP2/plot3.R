@@ -24,5 +24,6 @@ ggplot(df, aes(x=year, y=emissions, color=type)) +
     geom_point() +
     ggtitle("PM2.5 emissions in Baltimore City by type of source") +
     xlab("Year") +
-    ylab("Emissions (tons)")
+    ylab("Emissions (tons)") +
+    scale_x_continuous(breaks=seq(1999,2008,3))
 ggsave(filename="plot3.png", width=8, height=8)

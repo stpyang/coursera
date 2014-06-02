@@ -8,17 +8,18 @@ NEI <- readRDS("summarySCC_PM25.rds")
 ## Restrict to Baltimore City
 baltimoreCity <- NEI[NEI$fips == "24510",]
 
-# Sum by year
+## Sum by year
 library(plyr)
 df <- ddply(.data=data.frame(baltimoreCity$Emissions),
             .variables=.(baltimoreCity$year), colwise(sum))
 names(df) <- c("year", "emissions")
 
-# Plot and save
+## Plot and save
 plot(df$year, df$emissions, type="b",
      main="Total PM2.5 emissions in Baltimore City",
      xlab="Year",
-     ylab="Total emissions (tons)")
-
+     ylab="Total emissions (tons)",
+     xaxt="n")
+axis(1, at=seq(1999,2008,3))
 dev.copy(png, file="plot2.png")
 dev.off()

@@ -14,6 +14,8 @@ names(df) <- c("year", "emissions")
 plot(df$year, df$emissions, type="b",
      main="Total PM2.5 emissions in the United States",
      xlab="Year",
-     ylab="Total emissions (tons)")
+     ylab="Total emissions (tons)",
+     xaxt="n")
+axis(1, at=seq(1999,2008,3))
 dev.copy(png, file="plot1.png")
 dev.off()

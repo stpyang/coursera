@@ -26,12 +26,13 @@ df$county <- factor(df$county)
 
 ## Create a graph of absolute emission values
 library(ggplot2)
-plotAbsolute <- ggplot(df, aes(x=year, y=emissions, color=county)) +
+plotLog <- ggplot(df, aes(x=year, y=log(emissions), color=county)) +
     geom_line() +
     geom_point() +
-    ggtitle("Absolute change in motor-vehicle related PM25 emissions (tons)") +
+    ggtitle("Motor-vehicle related PM25 emissions") +
     xlab("Year") +
-    ylab("Emissions (tons)")
+    ylab("Emissions (log(tons)") +
+    scale_x_continuous(breaks=seq(1999,2008,3))
 
 ## Create a graph of relative emissions values, relative to 1999
 initialValues <- df[df$year==1999,]
@@ -44,10 +45,11 @@ plotRelative <- ggplot(df, aes(x=year, y=relativeEmissions, color=county)) +
     geom_point() +
     ggtitle("Percent change (from 1999) in motor-vehicle related PM25 emissions") +
     xlab("Year") +
-    ylab("Percent change (from 1999) of emissions")
+    ylab("Percent change (from 1999) of emissions") +
+    scale_x_continuous(breaks=seq(1999,2008,3))
 
-#Plot and save
+## Plot and save
 library(gridExtra)
 png(filename="plot6.png", width=1000, height=800)
-grid.arrange(plotAbsolute, plotRelative, nrow = 2)
+grid.arrange(plotLog, plotRelative, nrow = 2)
 dev.off()
