@@ -74,8 +74,11 @@ trait Solver extends GameDef {
    */
   def from(initial: Stream[(Block, List[Move])],
            explored: Set[Block]): Stream[(Block, List[Move])] = {
-      val (block, moves) = initial.head
-      (block, moves) #:: from(initial.tail ++ newNeighborsOnly(neighborsWithHistory(block, moves), explored), explored + block)
+      if (initial.isEmpty) Stream.empty
+      else {
+        val (block, moves) = initial.head
+        (block, moves) #:: from(initial.tail ++ newNeighborsOnly(neighborsWithHistory(block, moves), explored), explored + block)
+      }
   }
              
   /**
