@@ -21,6 +21,9 @@ Programming exercises for the classes online at www.coursera.org
 1. Recursion (recfun)
 2. Functional Sets (funsets)
 3. Object-Oriented Sets (objsets)
+4. Types and Pattern Matching
+6. Collections
+7. Lazy Evaluation
 
 ##repdata-002 Reproducible Research
 
